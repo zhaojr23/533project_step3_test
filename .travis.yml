@@ -4,4 +4,4 @@ python:
   - "3.5"
 # command to run tests
 script:
-  - python TestModule1.py
+  - python purcharse_managment.py
