@@ -1,3 +1,5 @@
+import sys
+sys.path.append('../../')
 from supermarket_system.product_management.warehouse_management import warehouse
 class sales(warehouse):
     """
