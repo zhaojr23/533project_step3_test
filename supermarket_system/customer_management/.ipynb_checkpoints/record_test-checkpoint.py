@@ -1,6 +1,8 @@
 import unittest
+import sys
 from datetime import datetime
-from records_management import record
+sys.path.append('../../')
+from supermarket_system.customer_management.records_management import record
 
 class TestRecord(unittest.TestCase):
     
@@ -18,6 +20,8 @@ class TestRecord(unittest.TestCase):
 
     def setUp(self):
         """Setup resources for each test case."""
+        self.record_system.history.clear()
+        self.record_system.q.clear()
         print("TestRecord: Setup executed.")
 
     def tearDown(self):
@@ -57,7 +61,7 @@ class TestRecord(unittest.TestCase):
         
         # Then
         history = self.record_system.history[customer_id]
-        self.assertEqual(len(history), 2, "Customer should have 1 history record.")
+        self.assertEqual(len(history), 1, "Customer should have 1 history record.")
         self.assertEqual(history[-1]["total_price"], total_price, "The total price should match the added value.")
         self.assertEqual(history[-1]["profit"], profit, "The profit should match the added value.")
         self.assertEqual(history[-1]["items"][0]["name"], "Banana", "The item name should match.")
@@ -85,6 +89,54 @@ class TestRecord(unittest.TestCase):
         
         total_spent = total_price1 + total_price2
         self.assertEqual(total_spent, 22, "Total spent should match the sum of all records.")
-    
+
+    def test_supermarket_situation(self):
+         
+        customer_id1 = "CUST123"
+        customer_id2 = "CUST456"
+        
+        items1 = [{"name": "Apple", "price": 5, "quantity": 2}]
+        total_price1 = 10
+        profit1 = 5
+        cal_q1 = {"Apple": 2}
+
+        items2 = [{"name": "Banana", "price": 2, "quantity": 5}]
+        total_price2 = 10
+        profit2 = 4
+        cal_q2 = {"Banana": 5}
+
+        self.record_system.add_record(customer_id1, items1, total_price1, profit1, cal_q1)
+        self.record_system.add_record(customer_id2, items2, total_price2, profit2, cal_q2)
+        
+        expected_visits = 2  # Two customers
+        expected_total_sales = total_price1 + total_price2
+        expected_total_profit = profit1 + profit2
+        expected_most_popular_product = "Banana"
+        expected_max_quantity = 5
+
+        # Capture output
+        from io import StringIO
+        import sys
+        captured_output = StringIO()
+        sys.stdout = captured_output
+        self.record_system.supermarket_situation()
+        sys.stdout = sys.__stdout__
+
+        # Check output
+        output = captured_output.getvalue().strip()
+        expected_output = (
+            f"total visits: {expected_visits},total sales:{expected_total_sales}, "
+            f"total profit: {expected_total_profit}, most popular product:{expected_most_popular_product} "
+            f"with quantity of {expected_max_quantity}"
+        )
+        self.assertEqual(output, expected_output)
+
+
+def run_tests():
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestRecord)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+run_tests()
+
 
 

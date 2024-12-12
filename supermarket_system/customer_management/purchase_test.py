@@ -75,3 +75,8 @@ class TestPurchase(unittest.TestCase):
 
         self.assertEqual( [ record["total_price"] for record in record_entry], [10], "Total price in the record should match the checkout total.")
         self.assertEqual( [ record["profit"] for record in record_entry], [5], "Profit in the record should match the profit made.")
+def run_tests():
+    suite = unittest.TestLoader().loadTestsFromTestCase(TestPurchase)
+    unittest.TextTestRunner(verbosity=2).run(suite)
+
+run_tests()
