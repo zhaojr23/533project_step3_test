@@ -1,6 +1,6 @@
 # 533_project
 # Supermarket System Functions
-
+[![Build Status](https://app.travis-ci.com/zhaojr23/533project_step3_test.svg?token=qiZYDxpBzkzDLwxFxbm3&branch=main)](https://app.travis-ci.com/zhaojr23/533project_step3_test)
 ---
 
 ## 1. Product Management (Sub-Package 1)
