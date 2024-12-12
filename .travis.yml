@@ -7,4 +7,5 @@ script:
   - python  supermarket_system/customer_management/purchase_management.py
   - python  supermarket_system/customer_management/records_management.py
 
-  
+env:
+  - PYTHONPATH=$PYTHONPATH:./supermarket_system
