@@ -6,6 +6,5 @@ script:
   - python  supermarket_system/product_management/warehouse_management.py
   - python  supermarket_system/customer_management/purchase_management.py
   - python  supermarket_system/customer_management/records_management.py
-  - python  supermarket_system/product_management/sales_management.py
 
   
