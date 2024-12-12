@@ -46,9 +46,15 @@ class record():
 
     def get_history(self, customerId):
         #print(self.history)
-        records = self.history.get(customerId, [])
-        #print(records)
-        print( [[record["date"], record["items"], record["total_price"],record["status"]] for record in records])
+        try:
+            records = self.history.get(customerId, [])
+            if not records:
+                raise KeyError
+        except KeyError:
+            print("key Error")
+        else:
+            #print(records)
+            print( [[record["date"], record["items"], record["total_price"],record["status"]] for record in records])
 
     def get_total(self,customerId):
         if customerId not in self.history:
