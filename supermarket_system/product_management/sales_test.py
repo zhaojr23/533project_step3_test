@@ -32,6 +32,7 @@ class TestSales(unittest.TestCase):
         del self.warehouse
 
     def test_add_newproduct(self):
+        
         self.sales.add_newproduct("001", 50, 3.0)
         self.assertIn("001", self.sales.shelves)
         self.assertEqual(self.sales.shelves["001"]["quantity"], 50)

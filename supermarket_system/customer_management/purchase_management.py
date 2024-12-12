@@ -45,19 +45,24 @@ class purchase():
                         print("Sorry, the product code is not valid.")
                         continue
                     else:
-                        quantity = int(input(f"Enter the quantity for {sales.shelves[productId]['name']}: "))
-                        if sales.shelves[productId]["quantity"] < quantity:
-                            print("Sorry, insufficient stock on the shelf.")
+                        try:
+                            quantity = int(input(f"Enter the quantity for {sales.shelves[productId]['name']}: "))
+    
+                        except ValueError:
+                            print("quantity should be an integer")
                         else:
-                            self.purchases.append({
-                                "id" : productId,
-                                "name": sales.shelves[productId]["name"],
-                                "price": sales.shelves[productId]["sprice"],
-                                "quantity": quantity,
-                                 "pprice" : sales.shelves[productId]["pprice"]
-                            })
-                            sales.shelves[productId]["quantity"] -= quantity
-                            print(f"{quantity} x {sales.shelves[productId]['name']} added to your cart.")
+                            if sales.shelves[productId]["quantity"] < quantity:
+                                print("Sorry, insufficient stock on the shelf.")
+                            else:
+                                self.purchases.append({
+                                    "id" : productId,
+                                    "name": sales.shelves[productId]["name"],
+                                    "price": sales.shelves[productId]["sprice"],
+                                    "quantity": quantity,
+                                    "pprice" : sales.shelves[productId]["pprice"]
+                                })
+                                sales.shelves[productId]["quantity"] -= quantity
+                                print(f"{quantity} x {sales.shelves[productId]['name']} added to your cart.")
                 elif a=="D":
                     if not self.purchases:
                         print("There are no gooods in your cart, add some first please")

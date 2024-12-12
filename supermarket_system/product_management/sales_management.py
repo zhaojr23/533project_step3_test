@@ -30,16 +30,28 @@ class sales(warehouse):
         super().__init__()
         self.products = product.products
     def add_newproduct(self, productId, quantity, saleprice):
-        if productId not in self.shelves and productId in self.products and quantity <= self.products[productId]["quantity"]:
-            self.shelves[productId]={
-                "name": self.products[productId]["name"],
-                "quantity": quantity,
-                "sprice" : saleprice,
-                "pprice" : self.products[productId]["pprice"]
-            }
-            self.remove_product(productId, quantity)
+        try:
+            if not isinstance(quantity, int):
+                raise ValueError("Quantity must be an integer")
+        except:
+            print("ValueError")
         else:
-            print("On shelves or wrong productId or quantity is too large")
+            try:
+                if not isinstance(saleprice, float):
+                    raise ValueError("Salesprice must be a number")
+            except:
+                    print("ValueError of Price") 
+            else:  
+                if productId not in self.shelves and productId in self.products and quantity <= self.products[productId]["quantity"]:
+                    self.shelves[productId]={
+                        "name": self.products[productId]["name"],
+                        "quantity": quantity,
+                        "sprice" : saleprice,
+                        "pprice" : self.products[productId]["pprice"]
+                    }
+                    self.remove_product(productId, quantity)
+                else:
+                    print("On shelves or wrong productId or quantity is too large")
 
     def increase_quantity(self, productId, quantity):
         if productId in self.shelves and quantity <= self.products[productId]["quantity"]:
