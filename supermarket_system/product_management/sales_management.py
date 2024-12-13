@@ -37,8 +37,8 @@ class sales(warehouse):
             print("ValueError")
         else:
             try:
-                if not isinstance(saleprice, float):
-                    raise ValueError("Salesprice must be a number")
+                if saleprice <= 0:
+                    raise ValueError("Salesprice must greater than 0")
             except:
                     print("ValueError of Price") 
             else:  
