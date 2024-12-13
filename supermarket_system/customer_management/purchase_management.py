@@ -85,8 +85,6 @@ class purchase():
                                     else:
                                         print(" the quantity is outweight")
                                         break
-                                else:
-                                    print("The id is wrong")
                             else:
                                 print("The id is wrong")
                         else:
